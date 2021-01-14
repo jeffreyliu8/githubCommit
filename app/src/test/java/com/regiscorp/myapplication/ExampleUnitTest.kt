@@ -2,6 +2,7 @@ package com.regiscorp.myapplication
 
 import com.orhanobut.logger.Logger
 import com.regiscorp.myapplication.constants.BASE_GITHUB_URL
+import com.regiscorp.myapplication.constants.MIN_NUM_OF_COMMITS
 import com.regiscorp.myapplication.constants.TARGET_GITHUB_OWNER
 import com.regiscorp.myapplication.constants.TARGET_GITHUB_REPO
 import com.regiscorp.myapplication.endpoint.WebEndpoint
@@ -35,12 +36,12 @@ class ExampleUnitTest {
     }
 
     @Test
-    internal fun testEndpointGetCommits() = runBlocking {
+    internal fun testEndpointGetCommitsOver25() = runBlocking {
         try {
             val result =
                 webEndpoint.getCommits(owner = TARGET_GITHUB_OWNER, repo = TARGET_GITHUB_REPO)
             if (result.isSuccessful) {
-                assertTrue(true)
+                assertTrue(result.body()?.size!! > 0)
             } else {
                 val errorResponse = result.errorBody()?.string()
                 assertEquals("error response", errorResponse)
