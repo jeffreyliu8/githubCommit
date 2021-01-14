@@ -41,7 +41,7 @@ class ExampleUnitTest {
             val result =
                 webEndpoint.getCommits(owner = TARGET_GITHUB_OWNER, repo = TARGET_GITHUB_REPO)
             if (result.isSuccessful) {
-                assertTrue(result.body()?.size!! > 0)
+                assertTrue(result.body()?.size!! > MIN_NUM_OF_COMMITS)
             } else {
                 val errorResponse = result.errorBody()?.string()
                 assertEquals("error response", errorResponse)
