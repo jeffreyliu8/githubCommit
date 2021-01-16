@@ -2,5 +2,4 @@
     <string name="app_name">My Application</string>
 
     <string name="loading">Loading</string>
-    <string name="error_message">Error: %s, please check network</string>
 </resources>

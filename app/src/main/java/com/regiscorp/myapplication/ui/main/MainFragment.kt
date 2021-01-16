@@ -12,7 +12,7 @@ import com.regiscorp.myapplication.adapter.ItemAdapter
 import com.regiscorp.myapplication.constants.TARGET_GITHUB_OWNER
 import com.regiscorp.myapplication.constants.TARGET_GITHUB_REPO
 import com.regiscorp.myapplication.databinding.MainFragmentBinding
-import com.regiscorp.myapplication.model.ResourceState
+import com.regiscorp.myapplication.other.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,13 +53,13 @@ class MainFragment : Fragment() {
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.commitsLiveData.observe(viewLifecycleOwner, { resource ->
-            when (resource.state) {
-                ResourceState.LOADING -> {
+            when (resource.status) {
+                Status.LOADING -> {
                     binding.message.visibility = View.VISIBLE
                     binding.message.text = getString(R.string.loading)
                     binding.recyclerView.visibility = View.GONE
                 }
-                ResourceState.SUCCESS -> {
+                Status.SUCCESS -> {
                     binding.message.visibility = View.GONE
                     binding.message.text = ""
                     resource.data?.let {
@@ -67,9 +67,9 @@ class MainFragment : Fragment() {
                     }
                     binding.recyclerView.visibility = View.VISIBLE
                 }
-                ResourceState.ERROR -> {
+                Status.ERROR -> {
                     binding.message.visibility = View.VISIBLE
-                    binding.message.text = getString(R.string.error_message, resource.message)
+                    binding.message.text = resource.message
                     binding.recyclerView.visibility = View.GONE
                 }
             }
